@@ -22,18 +22,25 @@ function Header() {
 }
 
 function Menu() {
-  const pizzas = pizzaData;
-  const numPizzas = pizzas.length;
+  const numPizzas = pizzaData.length;
 
   return (
     <main className="menu">
       <h2>Nuestro Menu</h2>
       {numPizzas > 0 && (
-        <ul className="pizzas">
-          {pizzas.map((pizza) => (
-            <Pizza pizzaObj={pizza} key={pizza.name} />
-          ))}
-        </ul>
+        <>
+          <p>
+            La mejor cocina Italiana.
+            <br />6 deliciosos platos para escoger. <br />
+            Todos preparados con amor en nuestro horno tradicional, <br />
+            con ingredientes frescos.
+          </p>
+          <ul className="pizzas">
+            {pizzaData.map((pizza) => (
+              <Pizza pizzaObj={pizza} key={pizza.name} />
+            ))}
+          </ul>
+        </>
       )}
     </main>
   );
@@ -41,12 +48,12 @@ function Menu() {
 
 function Pizza({ pizzaObj }) {
   return (
-    <li className="pizza">
+    <li className={`pizza ${pizzaObj.soldOut && "sold-out"}`}>
       <img src={pizzaObj.photoName} alt={pizzaObj.name} />
       <div>
         <h3>{pizzaObj.name}</h3>
         <p>{pizzaObj.ingredients}</p>
-        <span>{pizzaObj.price}</span>
+        <span>{pizzaObj.soldOut ? "SOLD OUT" : pizzaObj.price}</span>
       </div>
     </li>
   );
